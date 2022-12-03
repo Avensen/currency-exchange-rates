@@ -36,11 +36,11 @@ app.use((req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-	res.send("Hello World!");
-
-	// Not working properly
-	const rates = await getRates();
+  
+  const rates = await getRates();
 	console.log(rates);
+	
+	res.json(rates);
 });
 
 // require('./routes')(app);
