@@ -11,8 +11,6 @@ const options = {
 async function getRates() {
 	let response;
 
-	console.log(options.headers.Authorization)
-
 	try {
 		response = await axios.request(options);
 		// console.log(response);
