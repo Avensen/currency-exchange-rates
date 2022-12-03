@@ -1,6 +1,6 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const expressip = require('express-ip');
+const express = require("express");
+const bodyParser = require("body-parser");
+const expressip = require("express-ip");
 
 const getRates = require("./controllers");
 
@@ -12,33 +12,35 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressip().getIpInfoMiddleware);
 
 app.use((req, res, next) => {
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
+	// Website you wish to allow to connect
+	res.setHeader("Access-Control-Allow-Origin", "*");
 
-  // Request methods you wish to allow
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-  );
+	// Request methods you wish to allow
+	res.setHeader(
+		"Access-Control-Allow-Methods",
+		"GET, POST, OPTIONS, PUT, PATCH, DELETE"
+	);
 
-  // Request headers you wish to allow
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-Requested-With,content-type'
-  );
+	// Request headers you wish to allow
+	res.setHeader(
+		"Access-Control-Allow-Headers",
+		"X-Requested-With,content-type"
+	);
 
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
+	// Set to true if you need the website to include cookies in the requests sent
+	// to the API (e.g. in case you use sessions)
+	res.setHeader("Access-Control-Allow-Credentials", true);
 
-  // Pass to next layer of middleware
-  next();
+	// Pass to next layer of middleware
+	next();
 });
 
-app.get('/', (req, res) => {
-   res.send("Hello World!");
-   getRates();
-   console.log("Asere y esto por que no pincha");
+app.get("/", async (req, res) => {
+	res.send("Hello World!");
+
+	// Not working properly
+	const rates = await getRates();
+	console.log(rates);
 });
 
 // require('./routes')(app);

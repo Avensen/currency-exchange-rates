@@ -1,22 +1,24 @@
 const axios = require("axios").default;
+// require("dotenv")
 
-const headers = new Headers({
-	Authorization: "Bearer " + process.env.API_KEY
-});
+const options = {
+	method: "GET",
+	url: "https://tasas.eltoque.com/v1/trmi",
+	params: { date_from: "2022-12-03 00:00:01", date_to: "2022-12-03 23:59:01" },
+	headers: { Authorization: `Bearer ${process.env.API_KEY}` },
+};
 
 async function getRates() {
+	let response;
+
 	try {
-		const response = await axios.get(
-			"https://tasas.eltoque.com/v1/trmi?date_from=2022-12-03%2000%3A00%3A01&date_to=2022-12-03%2023%3A59%3A01", headers
-		);
+		response = await axios.request(options);
 		console.log(response);
 	} catch (error) {
 		console.error(error);
+		response = null
 	}
-
-   console.log("Asere y esto por que no pincha1")
-
-	return;
+	return response ? response.tasas : null;
 }
 
 module.exports = getRates;
