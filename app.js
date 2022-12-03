@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const expressip = require('express-ip');
 
+const getRates = require("./controllers");
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -35,6 +37,8 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
    res.send("Hello World!");
+   getRates();
+   console.log("Asere y esto por que no pincha");
 });
 
 // require('./routes')(app);
