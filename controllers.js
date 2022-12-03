@@ -1,5 +1,5 @@
 const axios = require("axios").default;
-// require("dotenv")
+require("dotenv").config();
 
 const options = {
 	method: "GET",
@@ -11,14 +11,16 @@ const options = {
 async function getRates() {
 	let response;
 
+	console.log(options.headers.Authorization)
+
 	try {
 		response = await axios.request(options);
-		console.log(response);
+		// console.log(response);
 	} catch (error) {
-		console.error(error);
+		// console.error(error);
 		response = null
 	}
-	return response ? response.tasas : null;
+	return response ? response.data.tasas : null;
 }
 
 module.exports = getRates;
