@@ -4,6 +4,9 @@ const expressip = require("express-ip");
 
 const getRates = require("./controllers");
 
+const dayjs = require("dayjs");
+dayjs().format();
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -36,10 +39,17 @@ app.use((req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-  
-  const rates = await getRates();
-	console.log(rates);
+	let now = dayjs();
 	
+
+	let dateTo = now.format("YYYY-MM-DD HH:mm:ss");
+	let dateFrom = now.subtract(23, "hour").format("YYYY-MM-DD HH:mm:ss");
+
+	const rates = await getRates(dateFrom, dateTo);
+	console.log(rates);
+	console.log(dateFrom);
+	console.log(dateTo);
+
 	res.json(rates);
 });
 
